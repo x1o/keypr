@@ -1,0 +1,22 @@
+sitename.com:
+  - user@server.org: password
+google.com:
+  - user1@gmail.com: password1
+  - user2@gmail.com: password2
+google.com jabber:
+  - user1@gmail.com: password1
+domain-registrar.com:
+  - 1234/abc-d (tech): password
+greystar:
+  - root: password
+greystar mysql:
+  - root: password
+4483 1234 5680 0856:
+  - '': 4949
+Companyname:
+  - user.name: password
+Companyname wifi:
+  - '': password
++1 123 456 7890:
+  - '': 9191
+

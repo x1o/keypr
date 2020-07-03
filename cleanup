@@ -1,0 +1,1 @@
+echo "Copy 'bin/keypr' from the package installation directory to a location from your PATH."

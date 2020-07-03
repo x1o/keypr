@@ -1,0 +1,32 @@
+Package: keypr
+Type: Package
+Title: Credentials Management Using GPG Encryption, YAML Files and CLI
+Version: 0.1.0
+Author: Dmitry Zotikov <xio@ungrund.org>
+Maintainer: Dmitry Zotikov <xio@ungrund.org>
+Description: This package provides a CLI and a set of corresponding functions
+    to work with an encrypted credentials storage.  A credential is a 
+    login-password pair, each linked to a "service" identified by a unique 
+    name.  This information is serialized to YAML and stored encrypted with a
+    symmetric cipher using GPG.  This package implements a convenient CLI to 
+    interface with the storage (querying / adding new records).
+License: GPL-3
+SystemRequirements: gpg (https://gnupg.org/)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.2
+Suggests: 
+    testthat (>= 2.1.0)
+Imports: 
+    magrittr,
+    yaml,
+    docopt,
+    glue,
+    cli,
+    stringr,
+    rlang,
+    tibble,
+    purrr,
+    dplyr,
+    huxtable

@@ -1,0 +1,9 @@
+if ! which gpg > /dev/null 2>&1; then
+    echo "------------------------------- ERROR --------------------------------"
+    echo "gpg cannot be found in PATH."
+    echo "If not installed, install the 'gpg' package (in dpkg-based distros)."
+    echo ""
+    echo "Sorry about that."
+    echo "----------------------------------------------------------------------"
+    exit 1
+fi
