@@ -11,7 +11,7 @@ Description: This package provides a CLI and a set of corresponding functions
     symmetric cipher using GPG.  This package implements a convenient CLI to 
     interface with the storage (querying / adding new records).
 License: GPL-3
-SystemRequirements: gpg (https://gnupg.org/)
+SystemRequirements: gnupg (https://gnupg.org/)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
