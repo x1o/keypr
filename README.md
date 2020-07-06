@@ -3,6 +3,7 @@
 <!-- badges: start -->
 [![Codecov test coverage](https://codecov.io/gh/x1o/keypr/branch/master/graph/badge.svg)](https://codecov.io/gh/x1o/keypr?branch=master)
 [![Travis build status](https://travis-ci.com/x1o/keypr.svg?branch=master)](https://travis-ci.com/x1o/keypr)
+[![Travis build status](https://travis-ci.org/x1o/keypr.svg?branch=master)](https://travis-ci.org/x1o/keypr)
 <!-- badges: end -->
 
 The goal of keypr is to ...
