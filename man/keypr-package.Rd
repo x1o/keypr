@@ -13,4 +13,12 @@ This package provides a CLI and a set of corresponding functions
     symmetric cipher using GPG.  This package implements a convenient CLI to 
     interface with the storage (querying / adding new records).
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/x1o/keypr}
+  \item Report bugs at \url{https://github.com/x1o/keypr/issues}
+}
+
+}
 \keyword{internal}
