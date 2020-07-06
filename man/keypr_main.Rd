@@ -21,6 +21,6 @@ Parse the arguments, read the passwd file, execute the given command (\code{get}
 }
 \examples{
 \donttest{
-keypr_main(c('--password_length', '12', 'add', 'sergey@gmail.com', 'google.com'))
+keypr_main(c('--password_length', '12', 'add', 'brin@gmail.com', 'google.com'))
 }
 }

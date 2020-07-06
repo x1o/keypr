@@ -52,7 +52,7 @@ keypr <- function(...) {
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' keypr_main(c('--password_length', '12', 'add', 'brin@gmail.com', 'google.com'))
 #' }
 keypr_main <- function(cmd_args = NULL, passphrase = NULL) {
