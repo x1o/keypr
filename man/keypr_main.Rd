@@ -20,7 +20,7 @@ Parse the arguments, read the passwd file, execute the given command (\code{get}
 \code{add}, ...).
 }
 \examples{
-\donttest{
-keypr_main(c('--password_length', '12', 'add', 'brin@gmail.com', 'google.com'))
+\dontrun{
+# keypr_main(c('--password_length', '12', 'add', 'brin@gmail.com', 'google.com'))
 }
 }
