@@ -1,6 +1,4 @@
----
-title: keypr
----
+# keypr
 
 <!-- badges: start -->
 [![Codecov test coverage](https://codecov.io/gh/x1o/keypr/branch/master/graph/badge.svg)](https://codecov.io/gh/x1o/keypr?branch=master)
@@ -9,11 +7,11 @@ title: keypr
 
 `keypr` is a simple yet sufficient password manager designed to be used via CLI.  It operates on a YAML file (which stores credentials data) encrypted with [GnuPG](https://gnupg.org/).  The idea is that you can, in principle, maintain the password file yourself manually by encrypting / decrypting with `gpg`, `grep`'ping and/or modifying it with your favourite editor.  `keypr` just provides a convenient interface to all that.
 
-# Raison d'etre
+## Raison d'etre
 
 Why would such a thing exist?  Very simple: the author had a *sudden urge* to write it.
 
-# Installation
+## Installation
 
 You can install the released version of `keypr` from [CRAN](https://CRAN.R-project.org) with:
 
@@ -39,7 +37,7 @@ Rscript -e 'keypr::keypr()' "$@"
 or copy it from `<package_installation_directory>/bin/keypr`.
 
 
-# Configuration
+## Configuration
 
 `keypr` is configured via a YAML configuration file, which is `$HOME/.config/keypr/keypr.yaml` by default.  In that file, specify the path to a `gpg`-encrypted password file, for example:
 
@@ -49,36 +47,40 @@ passwd_pathname: "pathname/to/passwd.yaml.gpg"
 
 or copy a sample config file from `<package_installation_directory>/config.yaml`.
 
-# Examples
+## Examples
 
-## Adding records
+### Adding records
 
 Add a google login-password pair (you will be asked for a password twice):
 
-```r
+```sh
 $ keypr --first_run add user1@gmail.com -p google_pass Google
 ```
 
 And another one, but this time do not specify a password explictly -- it will be generated:
 
-```r
+```sh
 $ keypr add user2@gmail.com Google
+```
+```
 → Generated password: 7J1F4SFvIgn4
 Service "Google" is already known (login “user1@gmail.com”). Add anyway? [Y/n] 
 ```
 
 Add a github R personal access token (which does not require a login):
 
-```r
+```sh
 $ keypr add -p 85a964v1ajg0592kkjfl3985802d955k4 'Github R PAT'
 ```
 
-## Querying
+### Querying
 
 Get all google credentials:
 
-```{r}
+```sh
 $ keypr get goo
+```
+```
   service   login             password      
   Google    user1@gmail.com   google_pass   
   Google    user2@gmail.com   7J1F4SFvIgn4  
