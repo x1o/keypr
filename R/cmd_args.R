@@ -6,8 +6,7 @@ keypr version {KEYPR_VERSION}
 
 Usage:
   keypr [-F] [-c <pathname>] get <service_name> [<name_filter>...]
-  keypr [-F] [-c <pathname>] [-l <n>] add [-p <password>] <service_name>
-  keypr [-F] [-c <pathname>] [-l <n>] add <login> [-p <password>] <service_name>
+  keypr [-F] [-c <pathname>] [-l <n>] add [<login>] [-p <password>] <service_name>
   keypr (-h | -v)
 
 Verbs:
