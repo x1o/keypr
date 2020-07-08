@@ -1,1 +1,12 @@
-echo "Copy 'bin/keypr' from the package installation directory to a location from your PATH."
+config_pathname=`Rscript -e "cat(file.path(.libPaths()[1], 'config.yaml'), '\n', sep = '')"`
+bin_pathname=`Rscript -e "cat(file.path(.libPaths()[1], 'bin', 'keypr'), '\n', sep = '')"`
+config_home=$XDG_CONFIG_HOME
+if [ -z "$config_home" ]; then
+    if [ -z "$HOME" ]; then
+        echo "ERROR: \$HOME is empty -- no files will be copied from the package."
+        exit 1
+    fi
+    config_home="$HOME/.config"
+fi
+echo "Copy \"$bin_pathname\" to a location in your PATH."
+echo "Copy the sample config file \"$config_pathname\" to \"$config_home/keypr/config.yaml\"."
