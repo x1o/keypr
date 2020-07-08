@@ -45,3 +45,30 @@ test_that("Saving works", {
         passwd_yaml
     )
 })
+
+
+test_that("Adding a record to an empty passwd works.", {
+    passwd_empty_pname <- '../testdata/passwd-empty.yaml.gpg'
+    file.copy(passwd_empty_pname, paste0(passwd_empty_pname, '.backup'))
+    keypr_main(
+        c(
+            '-c', '../testdata/home/.config/keypr/config-empty.yaml',
+            'add', 'login_t',
+            '-p', 'password_t',
+            'service_t'
+        ),
+        passphrase = '1234'
+    )
+    expect_output(
+        keypr_main(
+            c(
+                '-c', '../testdata/home/.config/keypr/config-empty.yaml',
+                'get',
+                'service_t'
+            ),
+            passphrase = '1234'
+        ),
+        '\\ *service_t\\ *login_t\\ *password_t'
+    )
+    file.rename(paste0(passwd_empty_pname, '.backup'), passwd_empty_pname)
+})

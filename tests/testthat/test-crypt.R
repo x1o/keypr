@@ -12,19 +12,7 @@ test_that('Decrypting a non-existing file fails', {
 test_that('Decryption with a wrong passphrase fails', {
     expect_error(
         read_passwd('../testdata/passwd.yaml.gpg', passphrase = 'x'),
-        class = 'decrypt_failed'
-    )
-})
-
-
-test_that('Incorrect gpg binary is detected', {
-    expect_error(
-        read_passwd(
-            '../testdata/passwd.yaml.gpg',
-            passphrase = '1234',
-            gpg_binary_name = 'xxx'
-        ),
-        class = 'no_gpg'
+        class = 'gpg_error'
     )
 })
 

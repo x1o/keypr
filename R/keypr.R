@@ -19,7 +19,6 @@ keypr <- function(...) {
         no_config = function(e) invisible(NULL),
         no_passwd = function(e) invisible(NULL),
         no_gpg = function(e) invisible(NULL),
-        decrypt_failed = function(e) invisible(NULL),
         conversion_error = function(e) invisible(NULL),
         bad_input = function(e) invisible(NULL),
         user_terminated = function(e) invisible(NULL),
@@ -58,16 +57,24 @@ keypr <- function(...) {
 keypr_main <- function(cmd_args = NULL, passphrase = NULL) {
     parsed_args <- parse_cmd_args(cmd_args = cmd_args)
     passwd_pathname <- get_passwd_pname(config_pname = parsed_args$config_file)
-    passwd_yaml <- read_passwd(passwd_pathname = passwd_pathname, passphrase = passphrase)
+    passwd_yaml <- read_passwd(
+        passwd_pathname = passwd_pathname,
+        init_passwd = parsed_args$first_run,
+        passphrase = passphrase
+    )
 
     if (parsed_args$get) {
-        passwd_yaml %>%
-            as_tibble() %>%
-            filter_passwd(
-                service_name = parsed_args$service_name,
-                name_filters = parsed_args$name_filter
-            ) %>%
-            pretty_print()
+        if (length(passwd_yaml) == 0) {
+            cli_alert_info('The passwd file {passwd_pathname} is empty.')
+        } else {
+            passwd_yaml %>%
+                as_tibble() %>%
+                filter_passwd(
+                    service_name = parsed_args$service_name,
+                    name_filters = parsed_args$name_filter
+                ) %>%
+                pretty_print()
+        }
     } else if (parsed_args$add) {
         password <- parsed_args$password
         if (is.null(password)) {

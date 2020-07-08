@@ -30,6 +30,7 @@ Imports:
     tibble,
     purrr,
     dplyr,
-    huxtable
+    huxtable,
+    assertthat
 URL: https://github.com/x1o/keypr
 BugReports: https://github.com/x1o/keypr/issues

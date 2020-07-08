@@ -27,3 +27,35 @@ test_that("get returns info message for a service not present in passwd", {
         NULL
     )
 })
+
+test_that('An empty passwd is created on the first run', {
+    passwd_first_run_pname <- '../testdata/passwd-empty-first_run.yaml.gpg'
+    assertthat::assert_that(!file.exists(passwd_first_run_pname))
+    keypr_main(
+        c(
+            '--first_run',
+            '-c', '../testdata/home/.config/keypr/config-empty-first_run.yaml',
+            'get',
+            'anything'
+        ),
+        passphrase = '1234'
+    )
+    expect_true(file.exists(passwd_first_run_pname))
+    file.remove(passwd_first_run_pname)
+})
+
+
+test_that('get on an empty passwd results in a notice', {
+    passwd_first_run_pname <- '../testdata/passwd-empty.yaml.gpg'
+    expect_message(
+        keypr_main(
+            c(
+                '-c', '../testdata/home/.config/keypr/config-empty.yaml',
+                'get',
+                'anything'
+            ),
+            passphrase = '1234'
+        ),
+        regexp = 'empty'
+    )
+})

@@ -5,9 +5,9 @@ parse_cmd_args <- function(cmd_args = NULL) {
 keypr version {KEYPR_VERSION}
 
 Usage:
-  keypr [-c <pathname>] get <service_name> [<name_filter>...]
-  keypr [-c <pathname>] [-l <n>] add [-p <password>] <service_name>
-  keypr [-c <pathname>] [-l <n>] add <login> [-p <password>] <service_name>
+  keypr [-F] [-c <pathname>] get <service_name> [<name_filter>...]
+  keypr [-F] [-c <pathname>] [-l <n>] add [-p <password>] <service_name>
+  keypr [-F] [-c <pathname>] [-l <n>] add <login> [-p <password>] <service_name>
   keypr (-h | -v)
 
 Verbs:
@@ -17,6 +17,8 @@ Verbs:
        service.  Empty logins ok.  See the `-p' option.
 
 Options:
+  -F, --first_run                       If the passwd file is missing, create a
+                                        new one.
   -c <pathname>, --config_file=<pathname> Pathname of a keypr configuration file
                                         (.yaml).
   -l <n>, --password_length=<n>         Length of the generated password
