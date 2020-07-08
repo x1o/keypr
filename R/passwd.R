@@ -88,7 +88,19 @@ gen_password <- function(len = 10) {
 add_record <- function(passwd_yaml, service_name, login, password) {
     new_record <- list()
     new_record[[login]] <- password
-    passwd_yaml[[service_name]] <- list(new_record)
+    if (service_name %in% names(passwd_yaml)) {
+        go_on <- ask_add_confirmation(
+            passwd_yaml = passwd_yaml,
+            service_name = service_name
+        )
+        if (!go_on) {
+            abort(class = 'user_terminated')
+        }
+        n_recs <- length(passwd_yaml[[service_name]])
+        passwd_yaml[[service_name]][[n_recs + 1]] <- new_record
+    } else {
+        passwd_yaml[[service_name]] <- list(new_record)
+    }
     return(passwd_yaml)
 }
 
