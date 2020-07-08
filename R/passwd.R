@@ -66,12 +66,19 @@ as_tibble.passwd <- function(passwd) {
 
 filter_passwd <- function(passwd_df, service_name, name_filters = list()) {
     passwd_df %>%
-        filter(str_detect(service, service_name)) %>%
+        filter(str_detect(service, regex(service_name, ignore_case = TRUE))) %>%
         {
             reduce(
                 name_filters,
-                function(df, name_filter)
-                    filter(df, str_detect(service, name_filter)),
+                function(df, name_filter) {
+                    filter(
+                        df,
+                        str_detect(
+                            service,
+                            regex(name_filter, ignore_case = TRUE)
+                        )
+                    )
+                },
                 .init = .
             )
         }
