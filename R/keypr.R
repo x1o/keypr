@@ -79,19 +79,11 @@ keypr_main <- function(cmd_args = NULL, passphrase = NULL) {
         password <- parsed_args$password
         if (is.null(password)) {
             password <- gen_password(len = parsed_args$password_length)
+            cli_alert('Generated password: {password}')
         }
         login <- parsed_args$login
         if (is.null(login)) {
             login <- ''
-        }
-        if (parsed_args$service_name %in% names(passwd_yaml)) {
-            go_on <- ask_add_confirmation(
-                passwd_yaml = passwd_yaml,
-                service_name = parsed_args$service_name
-            )
-            if (!go_on) {
-                abort(class = 'user_terminated')
-            }
         }
         passwd_yaml %>%
             add_record(
