@@ -21,7 +21,7 @@ test_that("get finds company wifi", {
 test_that("get returns info message for a service not present in passwd", {
     expect_message(
         keypr_main(
-            c('-c', '../testdata/home/.config/keypr/config.yaml', 'get', 'non-present'),
+            c('-c', '../testdata/home/_config/keypr/config.yaml', 'get', 'non-present'),
             passphrase = '1234'
         ),
         NULL
@@ -34,7 +34,7 @@ test_that('An empty passwd is created on the first run', {
     keypr_main(
         c(
             '--first_run',
-            '-c', '../testdata/home/.config/keypr/config-empty-first_run.yaml',
+            '-c', '../testdata/home/_config/keypr/config-empty-first_run.yaml',
             'get',
             'anything'
         ),
@@ -50,7 +50,7 @@ test_that('get on an empty passwd results in a notice', {
     expect_message(
         keypr_main(
             c(
-                '-c', '../testdata/home/.config/keypr/config-empty.yaml',
+                '-c', '../testdata/home/_config/keypr/config-empty.yaml',
                 'get',
                 'anything'
             ),

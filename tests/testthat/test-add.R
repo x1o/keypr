@@ -52,7 +52,7 @@ test_that("Adding a record to an empty passwd works.", {
     file.copy(passwd_empty_pname, paste0(passwd_empty_pname, '.backup'))
     keypr_main(
         c(
-            '-c', '../testdata/home/.config/keypr/config-empty.yaml',
+            '-c', '../testdata/home/_config/keypr/config-empty.yaml',
             'add', 'login_t',
             '-p', 'password_t',
             'service_t'
@@ -62,7 +62,7 @@ test_that("Adding a record to an empty passwd works.", {
     expect_output(
         keypr_main(
             c(
-                '-c', '../testdata/home/.config/keypr/config-empty.yaml',
+                '-c', '../testdata/home/_config/keypr/config-empty.yaml',
                 'get',
                 'service_t'
             ),
