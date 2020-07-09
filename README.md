@@ -9,7 +9,7 @@
 
 ## Raison d'etre
 
-Why would such a thing exist?  Very simple: the author had a *sudden urge* to write it.
+Pardon me -- a password manager in R?  But why?  Very simple: the author had a *sudden urge* to write it.
 
 ## Installation
 
