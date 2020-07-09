@@ -1,7 +1,7 @@
 Package: keypr
 Type: Package
 Title: Credentials Management Using GPG Encryption, YAML Files and CLI
-Version: 0.1.0
+Version: 0.2.0
 Author: Dmitry Zotikov
 Maintainer: Dmitry Zotikov <xio@ungrund.org>
 Description: A CLI and a set of corresponding functions to work with an 
