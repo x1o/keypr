@@ -1,4 +1,8 @@
-## Resubmission
+## Resubmission 2
+
+* Call globalVariables() from zzz.R directly, not in .onLoad()
+
+## Resubmission 1
 
 * Put abbreviations & the package name in single quotes in Title, Description.
 
