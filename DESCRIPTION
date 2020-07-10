@@ -1,15 +1,15 @@
 Package: keypr
 Type: Package
-Title: Credentials Management Using GPG Encryption, YAML Files and CLI
+Title: Credentials Management Using 'GPG' Encryption, 'YAML' Files and 'CLI'
 Version: 0.2.0
 Author: Dmitry Zotikov
 Maintainer: Dmitry Zotikov <xio@ungrund.org>
-Description: A CLI and a set of corresponding functions to work with an 
+Description: A 'CLI' and a set of corresponding functions to work with an 
     encrypted credentials storage.  A credential is a login-password pair, each 
     linked to a "service" identified by a unique name.  This information is 
-    serialized to YAML and stored encrypted with a symmetric cipher using GPG.  
-    keypr implements a convenient CLI to work with the storage (querying /
-    adding new records).
+    serialized to 'YAML' and stored encrypted with a symmetric cipher using 
+    'GPG'.  'keypr' implements a convenient 'CLI' to work with the storage 
+    (querying / adding new records).
 License: GPL-3
 SystemRequirements: gnupg (https://gnupg.org/)
 Encoding: UTF-8

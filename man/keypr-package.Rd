@@ -4,14 +4,14 @@
 \name{keypr-package}
 \alias{keypr-package}
 \alias{_PACKAGE}
-\title{keypr: Credentials Management Using GPG Encryption, YAML Files and CLI}
+\title{keypr: Credentials Management Using 'GPG' Encryption, 'YAML' Files and 'CLI'}
 \description{
-A CLI and a set of corresponding functions to work with an 
+A 'CLI' and a set of corresponding functions to work with an 
     encrypted credentials storage.  A credential is a login-password pair, each 
     linked to a "service" identified by a unique name.  This information is 
-    serialized to YAML and stored encrypted with a symmetric cipher using GPG.  
-    keypr implements a convenient CLI to work with the storage (querying /
-    adding new records).
+    serialized to 'YAML' and stored encrypted with a symmetric cipher using 
+    'GPG'.  'keypr' implements a convenient 'CLI' to work with the storage 
+    (querying / adding new records).
 }
 \seealso{
 Useful links:

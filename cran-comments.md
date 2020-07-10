@@ -1,3 +1,7 @@
+## Resubmission
+
+* Put abbreviations & the package name in single quotes in Title, Description.
+
 ## Test environments
 
 * Ubuntu 18.04.4 LTS (local installation), R 3.6.3
