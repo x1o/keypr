@@ -23,16 +23,16 @@ keypr <- function(...) {
         bad_input = function(e) invisible(NULL),
         user_terminated = function(e) invisible(NULL),
         fs_error = function(e) invisible(NULL),
-        gpg_error = function(e) invisible(NULL),
+        gpg_error = function(e) invisible(NULL)
         # "error" is the default class for all non-caught exceptions
-        error = function(e) {
-            e
+        # error = function(e) {
+            # e
             # cli_alert_danger(e$message)
             # if (is.null(getOption('keypr.debug')) || getOption('keypr.debug')) {
                 # print(e)
                 # quit(status = 1)
             # }
-        }
+        # }
     )
     quit(status = error_code)
 }
