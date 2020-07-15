@@ -20,7 +20,7 @@ read_passwd <- function(
     passwd_yaml <-
         gpg_read_str(pname = passwd_pathname, passphrase = passphrase) %>%
         paste0(collapse = '\n') %>%
-        yaml::yaml.load()
+        yaml::yaml.load(handlers = list(int = function(x) as.character(x)))
 
     if (is.null(passwd_yaml)) {
         passwd_yaml <- list()
