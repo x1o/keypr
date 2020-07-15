@@ -3,6 +3,7 @@
 <!-- badges: start -->
 [![Codecov test coverage](https://codecov.io/gh/x1o/keypr/branch/master/graph/badge.svg)](https://codecov.io/gh/x1o/keypr?branch=master)
 [![Travis build status](https://travis-ci.org/x1o/keypr.svg?branch=master)](https://travis-ci.org/x1o/keypr)
+![pkgdown](https://github.com/x1o/keypr/workflows/pkgdown/badge.svg?branch=master)
 <!-- badges: end -->
 
 `keypr` is a simple yet sufficient password manager designed to be used via CLI.  It operates on a YAML file (which stores credentials data) encrypted with [GnuPG](https://gnupg.org/).  The idea is that you can, in principle, maintain the password file yourself manually by encrypting / decrypting with `gpg`, `grep`'ping and/or modifying it with your favourite editor.  `keypr` just provides a convenient interface to all that.
