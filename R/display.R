@@ -13,7 +13,7 @@ pretty_print.passwd <- function(passwd) {
             hux() %>%
             set_bold(1, everywhere) %>%
             set_position('left') %>%
-            print_screen(colnames = FALSE)
+            print_screen(colnames = FALSE, max_width = Inf)
         cat('\n')
     }
 }
