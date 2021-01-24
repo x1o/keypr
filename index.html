@@ -43,19 +43,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/x1o/keypr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -86,26 +80,21 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Make sure <a href="https://gnupg.org/">GnuPG</a> is installed (<code>gnupg</code> in dpkg-based distros).</p>
-<p>You can install the released version of <code>keypr</code> from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"keypr"</span>)
-</pre></div>
-<p>or a developemnt version from github with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">devtools</span>::<span class="fu">install_github</span>(<span class="st">'x1o/keypr'</span>)
-</pre></div>
+<p>You can install the latest version of <code>keypr</code> from github with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'x1o/keypr'</span><span class="op">)</span></code></pre></div>
 <p>After the installation, put the following bash script to a location in your PATH:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#!/usr/bin/env bash</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="bu">umask</span> 0002</span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="ex">Rscript</span> -e <span class="st">'keypr::keypr()'</span> <span class="st">"</span><span class="va">$@</span><span class="st">"</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#!/usr/bin/env bash</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="bu">umask</span> 0002</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="ex">Rscript</span> -e <span class="st">'keypr::keypr()'</span> <span class="st">"</span><span class="va">$@</span><span class="st">"</span></span></code></pre></div>
 <p>or copy it from <code>&lt;package_installation_directory&gt;/bin/keypr</code>.</p>
 </div>
 <div id="configuration" class="section level2">
 <h2 class="hasAnchor">
 <a href="#configuration" class="anchor"></a>Configuration</h2>
 <p><code>keypr</code> is configured via a YAML configuration file, which is <code>$HOME/.config/keypr/keypr.yaml</code> by default. In that file, specify the path to a <code>gpg</code>-encrypted password file, for example:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">passwd_pathname</span><span class="kw">:</span><span class="at"> </span><span class="st">"pathname/to/passwd.yaml.gpg"</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">passwd_pathname</span><span class="kw">:</span><span class="at"> </span><span class="st">"pathname/to/passwd.yaml.gpg"</span></span></code></pre></div>
 <p>or copy a sample config file from <code>&lt;package_installation_directory&gt;/config.yaml</code>.</p>
 </div>
 <div id="examples" class="section level2">
@@ -115,19 +104,19 @@
 <h3 class="hasAnchor">
 <a href="#adding-records" class="anchor"></a>Adding records</h3>
 <p>Add a google login-password pair (you will be asked for a password twice):</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a>$ <span class="ex">keypr</span> --first_run add user1@gmail.com -p google_pass Google</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a>$ <span class="ex">keypr</span> --first_run add user1@gmail.com -p google_pass Google</span></code></pre></div>
 <p>And another one, but this time do not specify a password explictly – it will be generated:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a>$ <span class="ex">keypr</span> add user2@gmail.com Google</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a>$ <span class="ex">keypr</span> add user2@gmail.com Google</span></code></pre></div>
 <pre><code>→ Generated password: 7J1F4SFvIgn4
 Service "Google" is already known (login “user1@gmail.com”). Add anyway? [Y/n] </code></pre>
 <p>Add a github R personal access token (which does not require a login):</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a>$ <span class="ex">keypr</span> add -p 85a964v1ajg0592kkjfl3985802d955k4 <span class="st">'Github R PAT'</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a>$ <span class="ex">keypr</span> add -p 85a964v1ajg0592kkjfl3985802d955k4 <span class="st">'Github R PAT'</span></span></code></pre></div>
 </div>
 <div id="querying" class="section level3">
 <h3 class="hasAnchor">
 <a href="#querying" class="anchor"></a>Querying</h3>
 <p>Get all google credentials:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1"></a>$ <span class="ex">keypr</span> get goo</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a>$ <span class="ex">keypr</span> get goo</span></code></pre></div>
 <pre><code>  service   login             password      
   Google    user1@gmail.com   google_pass   
   Google    user2@gmail.com   7J1F4SFvIgn4  </code></pre>
@@ -183,7 +172,7 @@ Service "Google" is already known (login “user1@gmail.com”). Add anyway? [Y/
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
