@@ -16,13 +16,7 @@ Pardon me -- a password manager in R?  But why?  Very simple: the author had a *
 
 Make sure [GnuPG](https://gnupg.org/) is installed (`gnupg` in dpkg-based distros).
 
-You can install the released version of `keypr` from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("keypr")
-```
-
-or a developemnt version from github with:
+You can install the latest version of `keypr` from github with:
 
 ```r
 devtools::install_github('x1o/keypr')
