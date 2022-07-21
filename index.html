@@ -24,6 +24,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -36,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">keypr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
@@ -48,7 +50,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/x1o/keypr/">
+  <a href="https://github.com/x1o/keypr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -65,24 +67,24 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="keypr" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#keypr" class="anchor"></a>keypr</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="keypr">keypr<a class="anchor" aria-label="anchor" href="#keypr"></a>
+</h1></div>
 <!-- badges: start -->
-
-<p><code>keypr</code> is a simple yet sufficient password manager designed to be used via CLI. It operates on a YAML file (which stores credentials data) encrypted with <a href="https://gnupg.org/">GnuPG</a>. The idea is that you can, in principle, maintain the password file yourself manually by encrypting / decrypting with <code>gpg</code>, <code>grep</code>’ping and/or modifying it with your favourite editor. <code>keypr</code> just provides a convenient interface to all that.</p>
-<div id="raison-detre" class="section level2">
-<h2 class="hasAnchor">
-<a href="#raison-detre" class="anchor"></a>Raison d’etre</h2>
+<p><code>keypr</code> is a simple yet sufficient password manager designed to be used via CLI. It operates on a YAML file (which stores credentials data) encrypted with <a href="https://gnupg.org/" class="external-link">GnuPG</a>. The idea is that you can, in principle, maintain the password file yourself manually by encrypting / decrypting with <code>gpg</code>, <code>grep</code>’ping and/or modifying it with your favourite editor. <code>keypr</code> just provides a convenient interface to all that.</p>
+<div class="section level2">
+<h2 id="raison-detre">Raison d’etre<a class="anchor" aria-label="anchor" href="#raison-detre"></a>
+</h2>
 <p>Pardon me – a password manager in R? But why? Very simple: the author had a <em>sudden urge</em> to write it.</p>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>Make sure <a href="https://gnupg.org/">GnuPG</a> is installed (<code>gnupg</code> in dpkg-based distros).</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>Make sure <a href="https://gnupg.org/" class="external-link">GnuPG</a> is installed (<code>gnupg</code> in dpkg-based distros).</p>
+<p>In addition, on MacOS install <code>pinentry-mac</code> - a utility for passphrase entry.</p>
 <p>You can install the latest version of <code>keypr</code> from github with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'x1o/keypr'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'x1o/keypr'</span><span class="op">)</span></span></code></pre></div>
 <p>After the installation, put the following bash script to a location in your PATH:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#!/usr/bin/env bash</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
@@ -90,36 +92,62 @@
 <span id="cb2-4"><a href="#cb2-4"></a><span class="ex">Rscript</span> -e <span class="st">'keypr::keypr()'</span> <span class="st">"</span><span class="va">$@</span><span class="st">"</span></span></code></pre></div>
 <p>or copy it from <code>&lt;package_installation_directory&gt;/bin/keypr</code>.</p>
 </div>
-<div id="configuration" class="section level2">
-<h2 class="hasAnchor">
-<a href="#configuration" class="anchor"></a>Configuration</h2>
-<p><code>keypr</code> is configured via a YAML configuration file, which is <code>$HOME/.config/keypr/keypr.yaml</code> by default. In that file, specify the path to a <code>gpg</code>-encrypted password file, for example:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">passwd_pathname</span><span class="kw">:</span><span class="at"> </span><span class="st">"pathname/to/passwd.yaml.gpg"</span></span></code></pre></div>
-<p>or copy a sample config file from <code>&lt;package_installation_directory&gt;/config.yaml</code>.</p>
+<div class="section level2">
+<h2 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
+</h2>
+<p>GnuPG agent (<code>~/.gnupg/gpg-agent.conf</code>):</p>
+<pre><code>min-passphrase-len 0
+min-passphrase-nonalpha 0</code></pre>
+<p>In addition, on MacOS, add</p>
+<pre><code><span><span class="va">pinentry</span><span class="op">-</span><span class="va">program</span> <span class="op">/</span><span class="va">usr</span><span class="op">/</span><span class="va">local</span><span class="op">/</span><span class="va">bin</span><span class="op">/</span><span class="va">pinentry</span><span class="op">-</span><span class="va">mac</span></span></code></pre>
+<p><code>keypr</code> is configured via a YAML configuration file <code>keypr.yaml</code>, which is by default stored in the user config directory; call</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">rappdirs</span><span class="fu">::</span><span class="fu"><a href="https://rappdirs.r-lib.org/reference/user_data_dir.html" class="external-link">user_config_dir</a></span><span class="op">(</span>appname <span class="op">=</span> <span class="st">'keypr'</span><span class="op">)</span></span></code></pre></div>
+<p>to find the exact location on your system.</p>
+<p>In that file, specify the path to a <code>gpg</code>-encrypted password file, for example:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">passwd_pathname</span><span class="kw">:</span><span class="at"> </span><span class="st">"~/passwd.yaml.gpg"</span></span></code></pre></div>
+<p>If the config file does not exist, it will be created with <code>passwd_pathname</code> equal to <code>passwd.yaml.gpg</code> in the user default data dir; call</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">rappdirs</span><span class="fu">::</span><span class="fu"><a href="https://rappdirs.r-lib.org/reference/user_data_dir.html" class="external-link">user_data_dir</a></span><span class="op">(</span>appname <span class="op">=</span> <span class="st">'keypr'</span><span class="op">)</span></span></code></pre></div>
+<p>to find the value on your system.</p>
 </div>
-<div id="examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
-<div id="adding-records" class="section level3">
-<h3 class="hasAnchor">
-<a href="#adding-records" class="anchor"></a>Adding records</h3>
-<p>Add a google login-password pair (you will be asked for a password twice):</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a>$ <span class="ex">keypr</span> --first_run add user1@gmail.com -p google_pass Google</span></code></pre></div>
-<p>And another one, but this time do not specify a password explictly – it will be generated:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a>$ <span class="ex">keypr</span> add user2@gmail.com Google</span></code></pre></div>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
+<div class="section level3">
+<h3 id="adding-records">Adding records<a class="anchor" aria-label="anchor" href="#adding-records"></a>
+</h3>
+<p>Add a google login-password pair:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a>$ <span class="ex">keypr</span> add user1@gmail.com -p google_pass Google</span></code></pre></div>
+<p>And another one, but this time do not specify a password explictly – it will be generated (use <code>-s</code> to create a stronger password containing special symbols):</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1"></a>$ <span class="ex">keypr</span> add user2@gmail.com Google</span></code></pre></div>
 <pre><code>→ Generated password: 7J1F4SFvIgn4
 Service "Google" is already known (login “user1@gmail.com”). Add anyway? [Y/n] </code></pre>
 <p>Add a github R personal access token (which does not require a login):</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a>$ <span class="ex">keypr</span> add -p 85a964v1ajg0592kkjfl3985802d955k4 <span class="st">'Github R PAT'</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1"></a>$ <span class="ex">keypr</span> add -p 85a964v1ajg0592kkjfl3985802d955k4 <span class="st">'Github R PAT'</span></span></code></pre></div>
 </div>
-<div id="querying" class="section level3">
-<h3 class="hasAnchor">
-<a href="#querying" class="anchor"></a>Querying</h3>
+<div class="section level3">
+<h3 id="querying">Querying<a class="anchor" aria-label="anchor" href="#querying"></a>
+</h3>
 <p>Get all google credentials:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a>$ <span class="ex">keypr</span> get goo</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1"></a>$ <span class="ex">keypr</span> get goo</span></code></pre></div>
 <pre><code>  service   login             password      
   Google    user1@gmail.com   google_pass   
   Google    user2@gmail.com   7J1F4SFvIgn4  </code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1"></a>$ <span class="ex">keypr</span> get gith</span></code></pre></div>
+<pre><code>  service        login   password
+  Github R PAT           85a964v1ajg0592kkjfl3985802d955k4</code></pre>
+<p>The resulting passwd file would be</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1"></a>$ <span class="ex">keypr</span> config</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">passwd_pathname</span><span class="kw">:</span><span class="at"> ~/Library/Application Support/keypr/passwd.yaml.gpg</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1"></a>$ <span class="ex">gpg</span> -d ~/Library/Application\ Support/keypr/passwd.yaml.gpg</span></code></pre></div>
+<pre><code>gpg: AES256.CFB encrypted data
+gpg: encrypted with 1 passphrase
+Google:
+  - user1@gmail.com: google_pass
+  - user2@gmail.com: 7J1F4SFvIgn4
+Github R PAT:
+  - '': 85a964v1ajg0592kkjfl3985802d955k4</code></pre>
 <!--
   Note on openssl vs gpg
     https://superuser.com/questions/981084/how-can-i-perform-pgp-encryption-and-decryption-method-using-openssl-commands
@@ -134,45 +162,56 @@ Service "Google" is already known (login “user1@gmail.com”). Add anyway? [Y/
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/x1o/keypr/">https://​github.com/​x1o/​keypr/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/x1o/keypr/issues">https://​github.com/​x1o/​keypr/​issues</a>
-</li>
+<li><a href="https://github.com/x1o/keypr/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/x1o/keypr/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></small></li>
+<li><small><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing keypr</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Dmitry Zotikov <br><small class="roles"> Maintainer </small>  </li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://codecov.io/gh/x1o/keypr?branch=master"><img src="https://codecov.io/gh/x1o/keypr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://travis-ci.org/x1o/keypr"><img src="https://travis-ci.org/x1o/keypr.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://codecov.io/gh/x1o/keypr?branch=master" class="external-link"><img src="https://codecov.io/gh/x1o/keypr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://travis-ci.org/x1o/keypr" class="external-link"><img src="https://travis-ci.org/x1o/keypr.svg?branch=master" alt="Travis build status"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Dmitry Zotikov.</p>
+  <p></p>
+<p>Developed by Dmitry Zotikov.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer>
@@ -180,6 +219,8 @@ Service "Google" is already known (login “user1@gmail.com”). Add anyway? [Y/
 
   
 
+
+  
 
   </body>
 </html>
