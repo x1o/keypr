@@ -4,11 +4,11 @@
 \alias{keypr_main}
 \title{keypr Main Function}
 \usage{
-keypr_main(cmd_args = NULL, passphrase = NULL)
+keypr_main(raw_cmd_args = NULL, passphrase = NULL)
 }
 \arguments{
-\item{cmd_args}{Command-line arguments as recognized by \code{docopt}.  See \code{-h}
-usage screen.}
+\item{raw_cmd_args}{Command-line arguments as a string, as recognized by
+\code{docopt}.  See \code{-h} usage screen.}
 
 \item{passphrase}{A passphrase to the encrypted passwd.  Only for testing.}
 }

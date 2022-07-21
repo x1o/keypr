@@ -2,9 +2,8 @@
     # cat(file('../testdata/test_passwd.yaml', 'r'))
 # })
 test_that('Decrypting a non-existing file fails', {
-    expect_error(
-        read_passwd('nonexisting-file', passphrase = 'x'),
-        class = 'no_passwd'
+    expect_message(
+        read_passwd('nonexisting-file', passphrase = 'x')
     )
 })
 

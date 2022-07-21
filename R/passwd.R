@@ -3,31 +3,20 @@ read_passwd <- function(
         init_passwd = FALSE,
         passphrase = NULL
     ) {
-    if (!file.exists(passwd_pathname)) {
-        if (init_passwd) {
-            init_passwd(passwd_pathname = passwd_pathname, passphrase = passphrase)
-        } else {
-            die(
-                glue(
-                    'passwd file "{passwd_pathname}" does not exist.',
-                    ' To create one, re-run with --first_run.'
-                ),
-                'no_passwd'
-            )
-        }
-    }
-
+    echo_info('Using "{passwd_pathname}" password file')
     passwd_yaml <-
-        gpg_read_str(pname = passwd_pathname, passphrase = passphrase) %>%
-        paste0(collapse = '\n') %>%
-        yaml::yaml.load(handlers = list(int = function(x) as.character(x)))
-
-    if (is.null(passwd_yaml)) {
-        passwd_yaml <- list()
-    }
+        if (!file.exists(passwd_pathname)) {
+            echo_warn('The password file "{passwd_pathname} does not exist')
+            NULL
+        } else {
+            gpg_read_str(pname = passwd_pathname, passphrase = passphrase) |>
+                paste0(collapse = '\n') |>
+                yaml::yaml.load(handlers = list(int = function(x) as.character(x)))
+        }
+    passwd_yaml <- passwd_yaml %||% list()
 
     class(passwd_yaml) <- c('passwd', class(passwd_yaml))
-    return(passwd_yaml)
+    passwd_yaml
 }
 
 
@@ -45,50 +34,52 @@ as_tibble.passwd <- function(passwd) {
     }
 
     passwd_df <-
-        passwd %>%
+        passwd |>
         imap_dfr(~{
-            .x %>%
-                flatten() %>%
+            .x |>
+                flatten() |>
                 imap_dfr(~{
                     list(
                         login = .y,
                         password = as.character(.x)
                     )
-                }) %>%
-                bind_cols(list(service = .y)) %>%
+                }) |>
+                bind_cols(list(service = .y)) |>
                 select(service, everything())
         })
 
     class(passwd_df) <- c('passwd', class(passwd_df))
-    return(passwd_df)
+    passwd_df
 }
 
 
 filter_passwd <- function(passwd_df, service_name, name_filters = list()) {
-    passwd_df %>%
-        filter(str_detect(service, regex(service_name, ignore_case = TRUE))) %>%
-        {
-            reduce(
-                name_filters,
-                function(df, name_filter) {
-                    filter(
-                        df,
-                        str_detect(
-                            service,
-                            regex(name_filter, ignore_case = TRUE)
-                        )
+    apply_name_filters <- function(df, name_filters) {
+        reduce(
+            name_filters,
+            function(df, name_filter) {
+                filter(
+                    df,
+                    str_detect(
+                        service,
+                        regex(name_filter, ignore_case = TRUE)
                     )
-                },
-                .init = .
-            )
-        }
+                )
+            },
+            .init = df
+        )
+    }
+    passwd_df |>
+        filter(str_detect(service, regex(service_name, ignore_case = TRUE))) |>
+        apply_name_filters(name_filters)
 }
 
 
-gen_password <- function(len = 10) {
-    c(letters, LETTERS, as.character(0:9)) %>%
-        sample(len, replace = TRUE) %>%
-        paste0(collapse = '')
+gen_password <- function(len = 10, special = FALSE) {
+    s <- c(letters, LETTERS, 0:9)
+    if (special)
+        s <- c(s, unlist(strsplit('!@#$%^&*()', '')))
+    paste0(sample(s, len, replace = TRUE), collapse = '')
 }
 
 
@@ -108,11 +99,15 @@ add_record <- function(passwd_yaml, service_name, login, password) {
     } else {
         passwd_yaml[[service_name]] <- list(new_record)
     }
-    return(passwd_yaml)
+    passwd_yaml
 }
 
 
 save_passwd <- function(passwd_yaml, pname, passphrase = NULL) {
+    passwd_dir_created <- mkdir(dirname(pname), 'Password file')
+    if (!passwd_dir_created) {
+        abort('Cannot create passwd file directory', class = 'no_passwd')
+    }
     tryCatch(
         file.copy(pname, paste0(pname, '.backup'), overwrite = TRUE),
         error = function(e) {
@@ -121,16 +116,11 @@ save_passwd <- function(passwd_yaml, pname, passphrase = NULL) {
     )
     tryCatch(
         passwd_yaml_str <-
-            passwd_yaml %>%
+            passwd_yaml |>
             yaml::as.yaml(indent = 2, indent.mapping.sequence = TRUE),
         error = function(e) {
             die('Error converting list YAML into the string.', 'yaml_error')
         }
     )
-    passwd_yaml_str %>% gpg_write_str(pname, passphrase = passphrase)
-}
-
-
-init_passwd <- function(passwd_pathname, passphrase = NULL) {
-    gpg_write_str('', pname = passwd_pathname, passphrase = passphrase)
+    passwd_yaml_str |> gpg_write_str(pname, passphrase = passphrase)
 }

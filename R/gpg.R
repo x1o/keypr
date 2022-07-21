@@ -9,11 +9,12 @@ gpg_read_str <- function(pname, passphrase = NULL) {
         die('gpg is not installed.', 'no_gpg')
     }
 
-    gpg_args <- c('--decrypt', pname)
+    gpg_args <- c('--decrypt', shQuote(path.expand(pname)))
     if (!is.null(passphrase)) {
         gpg_args <- c(
             '--batch',
             '--passphrase', passphrase,
+            '--pinentry-mode', 'loopback',
             gpg_args
         )
     }
@@ -33,27 +34,36 @@ gpg_read_str <- function(pname, passphrase = NULL) {
         )
     }
 
-    return(str)
+    str
 }
 
 
 gpg_write_str <- function(str, pname, passphrase = NULL) {
     gpg_args <- c()
     if (!is.null(passphrase)) {
-        gpg_args <- c(gpg_args, '--batch', '--passphrase', passphrase)
+        gpg_args <- c(
+            gpg_args,
+            '--batch',
+            '--passphrase', passphrase,
+            '--pinentry-mode', 'loopback'
+        )
     }
     gpg_args <- c(
         gpg_args,
         '--yes',
-        '-c',
-        '-o', pname
+        '--passphrase-repeat', 0,
+        # '--pinentry-mode', 'loopback',
+        '--symmetric',
+        '--output', shQuote(path.expand(pname))
     )
     gpg_args_str <- paste0(gpg_args, collapse = ' ')
     tryCatch(
-        str %>%
+        str |>
+            # cat(file = pipe(glue('gpg {gpg_args_str}')), sep = '\n'),
+            # writeLines(sep = '\n', pipe(glue('gpg {gpg_args_str}'))),
             cat(file = glue('|gpg {gpg_args_str}'), sep = '\n'),
         error = function(e) {
-            die('Error encrypting {pname}.', 'gpg_error')
+            die('Error encrypting "{path.expand(pname)}".', 'gpg_error')
         }
     )
 }

@@ -7,7 +7,7 @@ test_that("gen_password works", {
 test_that("Adding records works", {
     passwd_yaml <- read_passwd(passwd_pathname = '../testdata/passwd.yaml.gpg', passphrase = '1234')
     passwd_yaml <-
-        passwd_yaml %>%
+        passwd_yaml |>
         add_record(
             service_name = 'test_service',
             login = 'test_login',
@@ -56,7 +56,7 @@ test_that("Adding a record to an empty passwd works.", {
             'add', 'login_t',
             '-p', 'password_t',
             'service_t'
-        ),
+        ) |> paste0(collapse = ' '),
         passphrase = '1234'
     )
     expect_output(

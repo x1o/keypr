@@ -16,8 +16,8 @@ test_that("as_tibble works", {
 
 test_that("as_tibble produces correct tibble", {
     passwd_df <-
-        '../testdata/passwd.yaml.gpg' %>%
-        read_passwd(passphrase = '1234') %>%
+        '../testdata/passwd.yaml.gpg' |>
+        read_passwd(passphrase = '1234') |>
         as_tibble()
     expect_equal(nrow(passwd_df), 11)
     expect_equal(colnames(passwd_df), c('service', 'login', 'password'))

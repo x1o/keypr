@@ -11,9 +11,10 @@
 #' @import stringr
 #' @import purrr
 #' @import dplyr
-#' @importFrom rlang abort
+#' @importFrom rlang abort `%||%`
 #' @importFrom tibble as_tibble
 #' @importFrom glue glue
 #' @importFrom huxtable hux set_bold set_position print_screen everywhere
 #' @importFrom utils packageVersion
+#' @importFrom assertthat assert_that
 NULL

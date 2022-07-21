@@ -1,7 +1,7 @@
 Package: keypr
 Type: Package
 Title: Credentials Management Using 'GPG' Encryption, 'YAML' Files and 'CLI'
-Version: 0.2.0
+Version: 0.3.0
 Author: Dmitry Zotikov
 Maintainer: Dmitry Zotikov <xio@ungrund.org>
 Description: A 'CLI' and a set of corresponding functions to work with an 
@@ -15,12 +15,11 @@ SystemRequirements: gnupg (https://gnupg.org/)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 Suggests: 
     testthat (>= 2.1.0),
     covr
 Imports: 
-    magrittr,
     yaml,
     docopt,
     glue,
